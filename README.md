@@ -13,17 +13,17 @@ Primairly intended for use within a short time after an update leaves the system
 but otherwise undesireable state, and is presumed correctable by reversing the update.			<br>
 <br>
 Dependencies: sudo pacutils										<br>
-<br>
+
 ```
 USAGE: downgrade-ud [operation]										<br>
 
-operations:	-rl  --readable_list    print detailed downgrade list (packages-new-old-versions)	<br>
-		-dl  --downgrade_list   print downgrade list in pacman useable format			<br>
-		-dt  --downgrade_test   pacman simulated downgrade (prints only)			<br>
-		-dg  --downgrade        pacman downgrades packages-versions from list			<br>
-		-h   --help             print this help info						<br>
+operations:	-rl  --readable_list    print detailed downgrade list (packages-new-old-versions)
+		-dl  --downgrade_list   print downgrade list in pacman useable format
+		-dt  --downgrade_test   pacman simulated downgrade (prints only)
+		-dg  --downgrade        pacman downgrades packages-versions from list
+		-h   --help             print this help info
 ```
-<br>
+
 Downgrade-ud gets the last update package list with versions from /var/log/pacman.log.			<br>
 The script verifies the packages prior to the last update are present in /var/cache/pacman/pkg/,	<br>
 and will skip any packages not available.								<br>
