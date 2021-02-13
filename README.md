@@ -14,7 +14,7 @@ but otherwise undesireable state, and is presumed correctable by reversing the u
 <br>
 Dependencies: sudo pacutils										<br>
 <br>
-<br>
+```
 USAGE: downgrade-ud [operation]										<br>
 <br>
 operations:	-rl  --readable_list    print detailed downgrade list (packages-new-old-versions)	<br>
@@ -22,7 +22,7 @@ operations:	-rl  --readable_list    print detailed downgrade list (packages-new-
 		-dt  --downgrade_test   pacman simulated downgrade (prints only)			<br>
 		-dg  --downgrade        pacman downgrades packages-versions from list			<br>
 		-h   --help             print this help info						<br>
-<br>
+```
 <br>
 Downgrade-ud gets the last update package list with versions from /var/log/pacman.log.			<br>
 The script verifies the packages prior to the last update are present in /var/cache/pacman/pkg/,	<br>
