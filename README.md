@@ -31,7 +31,7 @@ The downgrade operation uses command `sudo pacman -U "${DowngradeList[@]}"`.				
 <br>
 Downgrade-ud provides various levels of information gathering operations before downgrading.		<br>
 The first two operations, '-rl, -dl' are provided for easy evaluation of what the downgrade entails.	<br>
-The '-dt --downgrade_test' runs `pacman -Up "${DowngradeList[@]}"`, on the downgrade package list, 	<br>
+The '-dt --downgrade_test' runs `sudo pacman -Up "${DowngradeList[@]}"`, on the downgrade package list, <br>
 which is essentially a non transactional "dry run" with pacman providing output.			<br>
 <br>
 <br>
