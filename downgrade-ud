@@ -19,7 +19,7 @@ cat << EOF
  |               -h   --help             print this help info                                 |
  |                                                                                            |
  |  Downgrade-ud gets the last update package list and the versions (pre-post updated)        |
- |  from /var/log/pacman.log. It downgrades packages with "sudo pacman -Su <pkg>".            |
+ |  from /var/log/pacman.log. It downgrades with 'sudo pacman -U "\${DowngradeList[@]}"'.      |
  |                                                                                            |
  |  Downgrade-ud script location: $(which "$0")                                 |
  |============================================================================================|

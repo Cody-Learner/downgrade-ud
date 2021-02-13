@@ -1,7 +1,6 @@
 # downgrade-ud <br>
 
-![Screenshot-downgrade-ud](https://user-images.githubusercontent.com/36802396/107844798-7b36c200-6d8b-11eb-97da-f54e6e3b54bc.png)
-
+![Screenshot-Downgrade-ud](https://user-images.githubusercontent.com/36802396/107845071-ba661280-6d8d-11eb-95e8-39053997df85.png)
 <br>
 A simple bash script to undo the last pacman system update.						<br>
 Effort was focused on performing a system downgrade to Arch wiki described standards.			<br>
