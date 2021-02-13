@@ -27,7 +27,7 @@ operations:	-rl  --readable_list    print detailed downgrade list (packages-new-
 Downgrade-ud gets the last update package list with versions from /var/log/pacman.log.			<br>
 The script verifies the packages prior to the last update are present in /var/cache/pacman/pkg/,	<br>
 and will skip any packages not available.								<br>
-The downgrade operation uses command 'sudo pacman -U "${DowngradeList[@]}".				<br>
+The downgrade operation uses command `sudo pacman -U "${DowngradeList[@]}"`.				<br>
 <br>
 Downgrade-ud provides various levels of information gathering operations before downgrading.		<br>
 The first two operations, '-rl, -dl' are provided for easy evaluation of what the downgrade entails.	<br>
