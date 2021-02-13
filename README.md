@@ -16,7 +16,7 @@ Dependencies: sudo pacutils										<br>
 <br>
 ```
 USAGE: downgrade-ud [operation]										<br>
-<br>
+
 operations:	-rl  --readable_list    print detailed downgrade list (packages-new-old-versions)	<br>
 		-dl  --downgrade_list   print downgrade list in pacman useable format			<br>
 		-dt  --downgrade_test   pacman simulated downgrade (prints only)			<br>
@@ -28,7 +28,6 @@ Downgrade-ud gets the last update package list with versions from /var/log/pacma
 The script verifies the packages prior to the last update are present in /var/cache/pacman/pkg/,	<br>
 and will skip any packages not available.								<br>
 The downgrade operation uses command 'sudo pacman -U "${DowngradeList[@]}".				<br>
-<br>
 <br>
 Downgrade-ud provides various levels of information gathering operations before downgrading.		<br>
 The first two operations, '-rl, -dl' are provided for easy evaluation of what the downgrade entails.	<br>
