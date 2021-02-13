@@ -1,0 +1,88 @@
+#!/bin/bash
+# downgrade-ud 2021-02-12
+# Dependencies: sudo pacutils
+# Script to undo last update
+#--------------------------------------------------------------------------------------------
+help () {
+cat << EOF
+      
+ |============================================================================================|
+ |  Downgrade-ud: Script to undo last update. Intended for use after system update breakage.  |
+ |  Running downgrade-ud w/o operation prints this info.                                      |
+ |--------------------------------------------------------------------------------------------|
+ |  USAGE: downgrade-ud [operation]                                                           |
+ |                                                                                            |
+ |  operations:  -rl  --readable_list    print downgrade list (packages-new-old-versions)     |
+ |               -dl  --downgrade_list   print list in pacman useable format                  |
+ |               -dt  --downgrade_test   pacman simulated downgrade (prints only)             |
+ |               -dg  --downgrade        pacman downgrades packages from list                 |
+ |               -h   --help             print this help info                                 |
+ |                                                                                            |
+ |  Downgrade-ud gets the last update package list and the versions (pre-post updated)        |
+ |  from /var/log/pacman.log. It downgrades packages with "sudo pacman -Su <pkg>".            |
+ |                                                                                            |
+ |  Downgrade-ud script location: $(which "$0")                                 |
+ |============================================================================================|
+
+EOF
+}
+#--------------------------------------------------------------------------------------------
+# SET VARIABLES:
+
+Today=$(date '+%Y-%m-%d')
+Packages=$(paclog --after "${Today}" | paclog --action upgrade - \
+				     | awk '{print $4" " $5}'	 \
+				     | awk '!seen[$0]++'	 \
+				     | awk -F'(' '{ gsub (" ", "", $0); print "/var/cache/pacman/pkg/" $1"-"$2}')
+
+								# ^  Read pacman.log for last update     ^ #
+								# filter to pkg-ver and prepend cache path #
+readarray -t DowngradeList < <(for i in ${Packages};
+				do
+					find "${i}"* 2>/dev/null \
+					| grep -v sig		 \
+				done)'
+					# ^   Run "${Packages}" through 'find' to check availability in    ^ #
+					#  cache, discard unavailable, create DowngradeList array for pacman #
+#--------------------------------------------------------------------------------------------
+readable_list () {
+
+	echo " todays date     : ${Today}" ; echo
+
+	paclog --after "${Today}" | paclog --action upgrade -		\
+				  | awk '{print $4" " $5" " $6" " $7}'	\
+				  | awk '!seen[$0]++'			\
+				  | column -t				\
+				  | sort
+}
+#--------------------------------------------------------------------------------------------
+downgrade_list () {
+
+	printf '%s\n' "${DowngradeList[@]}"
+}
+#--------------------------------------------------------------------------------------------
+downgrade_test () {
+
+	sudo pacman -Up "${DowngradeList[@]}"
+}
+#--------------------------------------------------------------------------------------------
+downgrade_packages () {
+
+	sudo pacman -U "${DowngradeList[@]}"
+}
+#--------------------------------------------------------------------------------------------
+
+if	[[ -z $1 ]]; then help ; fi
+
+while :; do
+		case "${1}" in
+		-rl|--readable_list)	readable_list		;;
+		-dl|--downgrade_list)	downgrade_list		;;
+		-dt|--downgrade_test)	downgrade_test		;;
+		-dg|--downgrade)	downgrade_packages	;;
+         	 -h|--help)		help			;;
+        	-?*)			echo "error"		;;
+          	  *)  break
+        	esac
+    		shift
+	 done
