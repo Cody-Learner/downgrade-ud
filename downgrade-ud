@@ -37,11 +37,11 @@ Packages=$(paclog --after "${Today}" | paclog --action upgrade - \
 
 								# ^  Read pacman.log for last update     ^ #
 								# filter to pkg-ver and prepend cache path #
-readarray -t DowngradeList < <(for i in ${Packages};
+readarray -t DowngradeList < <(for i in ${Packages}
 				do
 					find "${i}"* 2>/dev/null \
-					| grep -v sig		 \
-				done)'
+					| grep -v sig
+				done)
 					# ^   Run "${Packages}" through 'find' to check availability in    ^ #
 					#  cache, discard unavailable, create DowngradeList array for pacman #
 #--------------------------------------------------------------------------------------------
