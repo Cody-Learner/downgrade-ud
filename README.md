@@ -15,7 +15,7 @@ but otherwise undesireable state, and is presumed correctable by reversing the u
 Dependencies: sudo pacutils										<br>
 
 ```
-USAGE: downgrade-ud [operation]										<br>
+USAGE: downgrade-ud [operation]
 
 operations:	-rl  --readable_list    print detailed downgrade list (packages-new-old-versions)
 		-dl  --downgrade_list   print downgrade list in pacman useable format
