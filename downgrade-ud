@@ -1,7 +1,8 @@
 #!/bin/bash
-# downgrade-ud 2021-02-12
+# downgrade-ud 2021-03-23
 # Dependencies: sudo pacutils
 # Script to undo last update
+# shellcheck disable=
 #--------------------------------------------------------------------------------------------
 help () {
 cat << EOF
@@ -12,10 +13,10 @@ cat << EOF
  |--------------------------------------------------------------------------------------------|
  |  USAGE: downgrade-ud [operation]                                                           |
  |                                                                                            |
- |  operations:  -rl  --readable_list    print downgrade list (packages-new-old-versions)     |
- |               -dl  --downgrade_list   print list in pacman useable format                  |
- |               -dt  --downgrade_test   pacman simulated downgrade (prints only)             |
- |               -dg  --downgrade        pacman downgrades packages from list                 |
+ |  operations:  -rl  --readable_list    print 'hr' downgrade list (packages-versions)        |
+ |               -dl  --downgrade_list   print 'pacman format' downgrade list                 |
+ |               -dt  --downgrade_test   simulated downgrade (non transactional dry run)      |
+ |               -dg  --downgrade        downgrade packages from list                         |
  |               -h   --help             print this help info                                 |
  |                                                                                            |
  |  Downgrade-ud gets the last update package list and the versions (pre-post updated)        |
@@ -44,6 +45,17 @@ readarray -t DowngradeList < <(for i in ${Packages}
 				done)
 					# ^   Run "${Packages}" through 'find' to check availability in    ^ #
 					#  cache, discard unavailable, create DowngradeList array for pacman #
+
+#--------------------------------------------------------------------------------------------
+check () {
+if	! [[ -v DowngradeList ]]; then
+	printf '%s\n' "	
+	There have been no updates made today, nothing to do.
+	Downgradable list: ${DowngradeList[*]}
+	"
+	exit
+fi
+}
 #--------------------------------------------------------------------------------------------
 readable_list () {
 
@@ -72,16 +84,19 @@ downgrade_packages () {
 }
 #--------------------------------------------------------------------------------------------
 
-if	[[ -z $1 ]]; then help ; fi
+if	[[ -z $1 ]]; then echo "
+	A script to undo todays pacman update.
+	"
+fi
 
 while :; do
 		case "${1}" in
-		-rl|--readable_list)	readable_list		;;
-		-dl|--downgrade_list)	downgrade_list		;;
-		-dt|--downgrade_test)	downgrade_test		;;
-		-dg|--downgrade)	downgrade_packages	;;
-         	 -h|--help)		help			;;
-        	-?*)			echo "error"		;;
+		-rl|--readable_list)	check ; readable_list		;;
+		-dl|--downgrade_list)	check ; downgrade_list		;;
+		-dt|--downgrade_test)	check ; downgrade_test		;;
+		-dg|--downgrade)	check ; downgrade_packages	;;
+         	 -h|--help)		help				;;
+        	-?*)			echo "user input error"		;;
           	  *)  break
         	esac
     		shift

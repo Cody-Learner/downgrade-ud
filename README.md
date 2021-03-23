@@ -39,7 +39,14 @@ which is essentially a non transactional "dry run" with pacman providing output.
 <br>
 NEWS/UPDATE INFO:<br>
 <br>
-REPORT initial release, Feb 12, 2021:<br>
+UPDATE: Mar 23, 2021:<br>
+Added check function to exit if no updates were made today.						<br>
+Reworded help info for clarity.										<br>
+Changed "parse for no options" from calling the help function, to print a message.			<br>
+Implemented shellcheck.											<br>
+<br>
+<br>
+REPORT: initial release, Feb 12, 2021:<br>
 I've used and tested downgrade-ud on my system, including downgrading the kernel and nvidia packages.	<br>
 Have not encountered issues, but be aware this has minimal usage and testing on one system only.	<br>
 Use at your own risk and before considering using it, please be advised to:				<br>
