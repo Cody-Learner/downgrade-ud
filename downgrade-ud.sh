@@ -9,7 +9,7 @@ cat << EOF
       
  |============================================================================================|
  |  Downgrade-ud: Script to undo last update. Intended for use after system update breakage.  |
- |  Running downgrade-ud w/o operation prints this info.                                      |
+ |  Running 'downgrade-ud -h' prints this info.                                               |
  |--------------------------------------------------------------------------------------------|
  |  USAGE: downgrade-ud [operation]                                                           |
  |                                                                                            |
